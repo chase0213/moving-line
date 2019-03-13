@@ -16,14 +16,14 @@ export enum AnimationDirection {
           [style.height]="boxHeight"
           [style.width]="boxWidth"
           [style.background]="background"
-          [style.box-shadow]="boxShadow"
+          [style.boxShadow]="boxShadow"
           [style.color]="color"
           [style.top]="top"
           [style.bottom]="bottom"
           [style.left]="left"
           [style.right]="right"
-          [style.transition-timing-function]="timingFunc"
-          [style.transition-duration]="duration">
+          [style.transitionTimingFunction]="timingFunc"
+          [style.transitionDuration]="duration">
           <div class="embedded-content"
             [innerHTML]="content"
             [style.opacity]="contentOpacity"
