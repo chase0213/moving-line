@@ -78,22 +78,13 @@ export class MovingLineComponent implements OnInit, OnChanges {
   lineWidth: string = '2px';
 
   @Input()
-  durationFirst: number = 1.0; // sec
+  durations: number[] = [1.0, 1.0]; // sec
 
   @Input()
-  durationSecond: number = 1.0; // sec
+  directions: AnimationDirection[] = [AnimationDirection.Downward, AnimationDirection.Rightward];
 
   @Input()
-  animationFirstDirection: AnimationDirection = AnimationDirection.Downward;
-
-  @Input()
-  animationSecondDirection: AnimationDirection = AnimationDirection.Rightward;
-
-  @Input()
-  transitionFuncFirst: string = 'easeInOutQuart';
-
-  @Input()
-  transitionFuncSecond: string = 'easeInOutQuart';
+  transitionFuncs: string [] = ['easeInOutQuart', 'easeInOutQuart'];
 
   top: string = 'auto';
   bottom: string = 'auto';
@@ -113,7 +104,7 @@ export class MovingLineComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.preprocess([this.animationFirstDirection, this.animationSecondDirection]);
+    this.preprocess(this.directions);
 
     if (this.show) {
       this.startAnimation();
@@ -123,15 +114,15 @@ export class MovingLineComponent implements OnInit, OnChanges {
   startAnimation() {
     this.boxHeight = this.lineWidth;
     this.boxWidth = this.lineWidth;
-    this.playAnimation(this.animationFirstDirection, this.durationFirst, this.transitionFuncFirst);
+    this.playAnimation(this.directions[0], this.durations[0], this.transitionFuncs[0]);
     setTimeout(() => {
-      this.playAnimation(this.animationSecondDirection, this.durationSecond, this.transitionFuncSecond);
+      this.playAnimation(this.directions[1], this.durations[1], this.transitionFuncs[1]);
       setTimeout(() => {
         this.contentOpacity = 1.0;
         this.contentTransform = 'translateY(0px)';
 
-      }, 1000 * this.durationSecond);
-    }, 1000 * this.durationFirst);
+      }, 1000 * this.durations[1]);
+    }, 1000 * this.durations[0]);
   }
 
   private preprocess(directions: AnimationDirection[]) {
